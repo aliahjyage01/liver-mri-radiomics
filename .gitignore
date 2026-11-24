@@ -1,0 +1,23 @@
+# Données patient : ne jamais versionner, sous aucune forme
+*.xlsx
+*.xls
+*.csv
+*.nii
+*.nii.gz
+*.dcm
+*.nrrd
+*.pdf
+
+# Figures régénérées à la racine par les scripts
+# (les figures agrégées publiées sont dans images/)
+/*.png
+
+# Environnement Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
