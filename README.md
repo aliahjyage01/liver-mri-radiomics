@@ -5,7 +5,8 @@ on MRI as well as a radiologist's qualitative reading? **No:** on 147 patients t
 19 variables reach a balanced accuracy of **0.69**, radiomics **0.39** — barely above chance
 (0.33) — and adding radiomics to the radiologist's reading makes it worse (0.59).
 
-**My contribution:** [à compléter]
+**My contribution:** Team project. My part: the whole analysis pipeline — data merging, PCA,
+clustering, supervised classification and repeated cross-validation.
 
 ![Balanced accuracy by approach, and confusion matrix of the best model](images/graphe_classification.png)
 
@@ -44,6 +45,10 @@ The other analyses point the same way (`main.py`, single split `random_state=0`)
 
 - **Unsupervised.** k-means recovers the tumour types from the radiologist's variables
   (ARI 0.249) but not from radiomics (ARI 0.019, i.e. no structure aligned with the classes).
+
+![PCA of both feature spaces: tumour types separate on the left, not on the right](images/graphe_acp.png)
+
+![k-means clusters against true types, and adjusted Rand index of both feature spaces](images/graphe_clustering.png)
 - **Where the radiologist fails.** HCC is recognised almost perfectly (83 / 87), but mixed
   tumours are spread across all three classes (17 / 37 correct) and half of the
   cholangiocarcinomas are called mixed (11 / 23). Mixed tumours combine features of the other
@@ -65,15 +70,13 @@ The other analyses point the same way (`main.py`, single split `random_state=0`)
 - **Intensities have no absolute unit on MRI.** First-order and texture features depend on
   scanner and acquisition settings; z-scoring across patients does not correct that. No
   intensity harmonisation (e.g. ComBat) was applied.
-- **The tumour-type coding was inferred, not documented.** The reading file codes types as
-  1 / 2 / 3; the mapping to CCK / HCC / mixed was deduced from class sizes (23 / 87 / 37),
-  which are all distinct, so the deduction is unambiguous but never confirmed by the source.
 - **The radiologist reference is one reader.** No inter-reader agreement is available, so the
   0.69 is one radiologist's performance, not the radiologist's.
 - **Choosing the best k for feature selection on the same CV is slightly optimistic.** It
   does not change the conclusion here, since even the best k stays at chance level.
-- **The patient data cannot be published.** The repository contains code and aggregate results
-  only — no image, no per-patient table, no per-patient plot.
+- **The patient data cannot be published.** The repository contains code and results only — no
+  MRI image and no per-patient table. The PCA and clustering plots show one anonymous point per
+  patient, with no identifier.
 
 ## Reproduce
 
